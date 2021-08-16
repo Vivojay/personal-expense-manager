@@ -1,0 +1,7 @@
+# Settings and Presets
+modes:
+  - eWallet
+  - Cash
+  - Debit Card
+  - Cheque
+  - Credit Card

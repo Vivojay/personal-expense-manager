@@ -1,0 +1,12 @@
+Welcome.
+This is a simple personal expense manager.
+
+This app helps you:
+    - Record all your expenses everyday
+    - Keep track of all transactions made
+    - Generate simple one-line transaction statements
+    - Generate short summaries for a quick read
+    - Number of transactions made per day
+
+# Prospects
+- Track monthly and yearly credits, debits and net transaction amounts
