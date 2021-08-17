@@ -13,6 +13,8 @@ os.chdir(curDir)
 # Imports
 import yaml
 import analysis
+import monthly_expense_logging_system as mels
+
 from tabulate import tabulate as tbl
 from datetime import datetime as dt
 
@@ -91,16 +93,25 @@ def save_data():
     analysis.gen_transactions_by_party_yml()
     print('Analysis prepared')
 
+    print('Updating Logs')
+    mels.draft_log()
+    mels.update_log()
+    print('Logs updated')
+
 
 def logout():
     global logged_out
-    confirm_logout = input('Press "y" to logout or any other key to stay: ')
+    confirm_logout = input('Press "y" to save and logout or any other key to abort session and logout: ')
     if confirm_logout.lower().strip() == 'y':
         save_data()
         print('\nThank you for using this application\nYou have been safely logged out.')
         _ = input('Hit enter to close this window now. . .')
 
         logged_out=True
+
+    else:
+        print('\nThank you for using this application\nNo data was saved and you have been successfully logged out.')
+        _ = input('Hit enter to close this window now. . .')
 
         # os._exit(0)
 
