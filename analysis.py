@@ -6,8 +6,7 @@ import sys
 import yaml
 
 # cd to work directory
-# curDir=os.path.dirname(__file__)
-curDir=os.path.dirname(sys.argv[0])
+curDir=os.path.dirname(__file__)
 os.chdir(curDir)
 
 
