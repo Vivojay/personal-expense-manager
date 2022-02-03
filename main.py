@@ -298,9 +298,13 @@ def main():
         # break
 
 if __name__ == '__main__':
+    main()
+
+    '''
     p=input('$ Password: ')
     if p.lower().strip() == '123':
         main()
     else:
         print('Invalid password')
+    '''
     # pass
