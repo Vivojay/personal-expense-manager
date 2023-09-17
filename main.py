@@ -122,11 +122,11 @@ def aborted_logout():
 def _input(_prompt, _type=float): # Prolly finished?
     user_input=''
 
-    if _type in [float, 'mode'] or type(_type) in [list, tuple]:
-        if _type == float:
+    if _type in (float, 'mode') or type(_type) in (list, tuple):
+        if _type is float:
             while not user_input.isdigit():
                 user_input=input(_prompt)
-                if user_input.lower().strip() == 'logout':
+                if user_input.strip().lower() == 'logout':
                     logout()
                     if logged_out:
                         break
@@ -139,15 +139,15 @@ def _input(_prompt, _type=float): # Prolly finished?
             asking_first_time = True
             while True:
                 user_input=input(_prompt*asking_first_time)
-                if user_input.lower().strip() == 'logout':
+                if user_input.strip().lower() == 'logout':
                     logout()
                     if logged_out:
                         break
                     else:
                         aborted_logout()
-                if user_input.lower().strip() != 'a' and user_input.lower().strip() != '':
+                if user_input.strip().lower() != 'a' and user_input.strip().lower():
                     break
-                if user_input.lower().strip() != '':
+                if user_input.lower().strip():
                     print('    Choose index corresponding to your mode of payment:')
                     print(
                         tbl(
@@ -161,13 +161,13 @@ def _input(_prompt, _type=float): # Prolly finished?
                     print('    or type a custom mode\n  or\n"a" again for options: ', end='')
                 asking_first_time = False
 
-                if user_input == '':
+                if not user_input:
                     print('    Custom mode can\'t be empty, please retry... ', end='')
                 elif user_input.isspace():
                     print('    Custom mode can\'t be only spaces or tabs, some characters are needed\nplease retry... ', end='')
 
             if not user_input.isdigit():
-                if user_input.lower().strip() != 'a':
+                if user_input.strip().lower() != 'a':
                     if len(user_input) >= 28:
                         print(f'      #Custom mode: {user_input[:14].strip()}...{user_input[-14:].strip()}')
                     else:
@@ -181,10 +181,10 @@ def _input(_prompt, _type=float): # Prolly finished?
                     print('      Mode can\'t be a negative number')
 
         else:
-            if type(_type) in [list, tuple]:
+            if type(_type) in (list, tuple):
                 while not user_input in _type:
                     user_input=input(_prompt)
-                    if user_input.lower().strip() == 'logout':
+                    if user_input.strip().lower() == 'logout':
                         logout()
                         if logged_out:
                             break
@@ -209,7 +209,7 @@ def process(x): # ~TBD!!
     '''
 
     # New transaction
-    if x.lower().strip() == '':
+    if not x.strip().lower():
         transaction_log_count+=1 # New transaction recording started
         print('='*80)
         print('::New transaction commenced')
@@ -237,7 +237,7 @@ def process(x): # ~TBD!!
         print()
 
         location = input('  *Location [optional]: ')
-        if location.lower().strip() == '':
+        if not location.strip().lower():
             location = ''
         print()
 
@@ -245,19 +245,19 @@ def process(x): # ~TBD!!
         print('::Transaction Summary')
 
 
-        NOW=dt.now().strftime('%A, %d-%b-%Y @%I:%M:%S %p')
-        if bound.lower().strip() == 'c': # Inbound money -> You credited
+        NOW = f"{dt.now():%A, %d-%b-%Y @%I:%M:%S %p}"
+        if bound.strip().lower() == 'c': # Inbound money -> You credited
             print(f'  You received {float(amount):,.2f} from {sender}\n')
             print(f'  Time: {NOW}')
-            if type(mode)==int:
+            if type(mode) is int:
                 print(f'  {location} via {modes[mode]}')
             else:
                 print(f'  {location} via {mode}')
 
-        elif bound.lower().strip() == 'd': # Outbound money -> You debited
+        elif bound.strip().lower() == 'd': # Outbound money -> You debited
             print(f'  You sent {float(amount):,.2f} to {receiver}\n')
             print(f'  Time: {NOW}')
-            if type(mode)==int:
+            if type(mode) is int:
                 print(f'  {location} via {modes[mode]}')
             else:
                 print(f'  {location} via {mode}')
@@ -272,7 +272,7 @@ def process(x): # ~TBD!!
         transactions_general['Transactions'].append(
             {
                 "amount": float(amount),
-                "bound": bound.lower().strip()=='c',
+                "bound": bound.strip().lower()=='c',
                 "mode": mode,
                 "parties": {
                     "sender": sender,
@@ -290,7 +290,7 @@ def process(x): # ~TBD!!
 def main():
     new = '' # Initializing `new`
     create_resources()
-    while not new.lower().strip().replace(' ', '') == 'logout':
+    while not new.replace(' ', '').lower() == 'logout':
         new = input(f'(log count: {transaction_log_count})~ ')
         process(new)
     else:
